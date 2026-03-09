@@ -6,7 +6,7 @@ Question Ans:
 - const: Also works inside { } block. Value cannot change after first time. Fixed forever.
 
 2. What is the spread operator (...)?
-Spread operator takes all items from an array or object and “spreads” them out.
+- Spread operator takes all items from an array or object and “spreads” them out.
 Example:
 let oldArray = [1,2,3];
 let newArray = [...oldArray]; // newArray = [1,2,3]
@@ -17,14 +17,14 @@ let newArray = [...oldArray]; // newArray = [1,2,3]
 - forEach(): Just loops through items. Does not return new array. Only used to do some work.
 
 4. What is an arrow function?
-Arrow function is a short way to write functions in JavaScript.
-Example:
-let add = (a, b) => a + b;
+- Arrow function is a short way to write functions in JavaScript.
+- Example:
+ et add = (a, b) => a + b;
 
 5. What are template literals?
-Template literals are strings written with backticks ` instead of quotes.
+- Template literals are strings written with backticks ` instead of quotes.
 They allow easy variable use inside string with ${variable}.
-Example:
+- Example:
 let name = "Fahim";
 console.log(`Hello, my name is ${name}`);
 
