@@ -49,3 +49,79 @@
 </div>
 </section>
 
+<section id="main-page" class="hidden">
+
+<nav class="navbar">
+
+<div class="nav-left">
+
+<img src="assets/github-logo.png" class="logo-icon">
+
+<h2>GitHub Issues Tracker</h2>
+
+</div>
+
+<div class="nav-right">
+
+<div class="search-box">
+<input type="text" id="search-input" placeholder="Search issues...">
+</div>
+
+<button class="btn-primary new-issue-btn">
+New Issue
+</button>
+
+</div>
+
+</nav>
+
+<main class="dashboard-content">
+
+<div class="tabs-container">
+
+<button class="tab-btn active" data-filter="all">All</button>
+<button class="tab-btn" data-filter="open">Open</button>
+<button class="tab-btn" data-filter="closed">Closed</button>
+
+</div>
+
+
+<div class="issues-header">
+
+<div class="header-left">
+
+<div class="icon-circle">
+    <img src="assets/Aperture.png" alt="Aperture" style="width: 24px;">
+</div>
+
+<div>
+
+<h3 id="issue-count-text">0 Issues</h3>
+<p>Track and manage your project issues</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div id="issues-grid" class="issues-grid"></div>
+
+</main>
+</section>
+
+<div id="issue-modal" class="modal hidden">
+
+<div class="modal-content">
+
+<span class="close-btn">&times;</span>
+
+<div id="modal-body"></div>
+
+</div>
+</div>
+
+<script src="script/script.js"></script>
+
+</body>
+</html>
