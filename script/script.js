@@ -129,3 +129,93 @@ function renderIssues(issues) {
 function updateHeaderCount(count, text) {
     issueCountText.innerText = `${count} ${text}`;
 }
+// Tabs logic
+tabBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        tabBtns.forEach(b => b.classList.remove('active'));
+        e.target.classList.add('active');
+        const filterValue = e.target.getAttribute('data-filter');
+        let filteredIssues = [];
+
+        if (filterValue === 'all') {
+            filteredIssues = allIssues;
+        } else {
+            filteredIssues = allIssues.filter(issue => 
+                issue.status && issue.status.toLowerCase() === filterValue
+            );
+        }
+        
+        renderIssues(filteredIssues);
+        updateHeaderCount(filteredIssues.length, 'Issues');
+    });
+});
+searchInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        const query = e.target.value.trim();
+        if (query) {
+            searchIssues(query);
+        } else {
+            document.querySelector('[data-filter="all"]').click(); 
+        }
+    }
+});
+
+//MODAL LOGIC
+function showModal(issue) {
+    const status = issue.status ? issue.status.toLowerCase() : 'open';
+    const statusClass = status === 'open' ? 'open' : 'closed';
+    const formattedDate = issue.createdAt ? new Date(issue.createdAt).toLocaleDateString() : 'N/A';
+    
+    let labelsHtml = '';
+    if (issue.labels && issue.labels.length > 0) {
+        issue.labels.forEach(label => {
+            const labelClass = label.toLowerCase().includes('bug') ? 'label-bug' : 
+                               label.toLowerCase().includes('help') ? 'label-help' : 'label-enhancement';
+            labelsHtml += `<span class="label-badge ${labelClass}"><i class="fa-solid fa-tag"></i> ${label}</span>`;
+        });
+    }
+
+    modalBody.innerHTML = `
+        <div class="modal-header">
+            <h2>${issue.title}</h2>
+            <div class="modal-meta">
+                <span class="status-badge ${statusClass}">${issue.status}</span>
+                <span>• Opened by ${issue.author} • ${formattedDate}</span>
+            </div>
+            <div class="labels">${labelsHtml}</div>
+        </div>
+        <p class="modal-desc">${issue.description}</p>
+        <div class="modal-footer">
+            <div>
+                <p>Assignee:</p>
+                <p>${issue.assignee || 'Unassigned'}</p>
+            </div>
+            <div>
+                <p>Priority:</p>
+                <span class="priority-badge priority-${issue.priority ? issue.priority.toLowerCase() : 'low'}">${issue.priority}</span>
+            </div>
+        </div>
+        <button class="modal-close-btn" onclick="closeModal()">Close</button>
+    `;
+    modal.classList.remove('hidden');
+}
+
+function closeModal() {
+    modal.classList.add('hidden');
+}
+
+closeModalBtn.addEventListener('click', closeModal);
+window.addEventListener('click', (e) => {
+    if (e.target === modal) {
+        closeModal();
+    }
+});
+
+//UTILS
+function showSpinner() {
+    spinner.classList.remove('hidden');
+}
+
+function hideSpinner() {
+    spinner.classList.add('hidden');
+}
